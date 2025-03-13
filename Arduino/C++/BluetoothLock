@@ -1,7 +1,7 @@
 #include <SoftwareSerial.h>
 
 SoftwareSerial BT(10, 11); // RX, TX 핀 설정
-int relayPin = 7; // 릴레이 핀 연결
+int relayPin = 13; // 릴레이 핀 연결
 
 void setup() {
   pinMode(relayPin, OUTPUT);
