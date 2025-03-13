@@ -1,0 +1,15 @@
+stream {
+    upstream backend {
+        server 192.168.1.100:3306;
+    }
+
+    server {
+        listen 12345 ssl; # SSL 활성화
+        proxy_pass backend;
+
+        ssl_certificate /etc/nginx/ssl/nginx.crt; # 인증서 경로
+        ssl_certificate_key /etc/nginx/ssl/nginx.key; # 인증서 키 경로
+        ssl_protocols TLSv1.2 TLSv1.3; # 안전한 프로토콜만 사용
+        ssl_ciphers HIGH:!aNULL:!MD5; # 강력한 암호화 알고리즘
+    }
+}
