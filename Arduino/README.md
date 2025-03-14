@@ -13,3 +13,5 @@
    ▶ 블루투스 명령제어 어플(APP)
 
    ※ 프로젝트 시연영상 및 회로도, 코드 등 ppt 및 로컬에 보관
+
+![image](https://github.com/user-attachments/assets/d3b09b6a-8a04-4c10-bb11-0e5d1cacf660)
