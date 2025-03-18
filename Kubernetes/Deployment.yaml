@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: game-backend-deployment
+  labels:
+    app: game-backend
+spec:
+  replicas: 3  # 오토 스케일링을 고려해 최소 3개 이상의 레플리카를 유지
+  selector:
+    matchLabels:
+      app: game-backend
+  template:
+    metadata:
+      labels:
+        app: game-backend
+    spec:
+      containers:
+        - name: game-backend-container
+          image: navercloudregistry/game-backend:latest  # NCP의 Docker Registry에 업로드된 게임 백엔드 이미지
+          ports:
+            - containerPort: 8080  # 애플리케이션이 리스닝할 포트
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: game-database-secret  # 비밀번호와 같은 민감한 정보는 Kubernetes Secret으로 관리
+                  key: database-url
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "500m"
+            limits:
+              memory: "1Gi"
+              cpu: "1000m"
