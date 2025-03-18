@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: game-backend-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: "/"
+spec:
+  rules:
+    - host: game.mygame.com  # 게임의 외부 도메인
+      http:
+        paths:
+          - path: /api  # /api 경로로 들어오는 요청을 백엔드 서비스로 전달
+            pathType: Prefix
+            backend:
+              service:
+                name: game-backend-service
+                port:
+                  number: 80
