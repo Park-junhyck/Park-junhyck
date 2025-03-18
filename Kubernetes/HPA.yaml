@@ -1,0 +1,18 @@
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: game-backend-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: game-backend-deployment
+  minReplicas: 3  # 최소 3개의 레플리카
+  maxReplicas: 10  # 최대 10개의 레플리카
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 50  # CPU 사용률이 50% 이상이면 스케일 아웃
