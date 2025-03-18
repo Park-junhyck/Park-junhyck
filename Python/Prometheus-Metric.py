@@ -15,5 +15,5 @@ def health_check():
 
 if __name__ == "__main__":
     # Prometheus 메트릭 수집 엔드포인트 시작
-    start_http_server(8000)  # 메트릭은 http://localhost:8000/metrics에서 제공됨
+    start_http_server(8000)  # 메트릭은 http://localhost:8000/metrics에서 제공
     app.run(port=5000)
