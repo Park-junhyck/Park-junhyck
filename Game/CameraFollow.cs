@@ -1,47 +1,23 @@
 using UnityEngine;
 
-public class PlayerMovement3D : MonoBehaviour
+public class CameraFollow : MonoBehaviour
 {
-    public float moveSpeed = 5f;          // 이동 속도
-    public float rotationSpeed = 700f;    // 회전 속도
-    private CharacterController controller;  // CharacterController 참조
+    public Transform player;      // 플레이어의 Transform
+    public Vector3 offset;        // 카메라와 플레이어 간의 오프셋
+    public float smoothSpeed = 0.125f;  // 카메라 부드럽게 움직이는 속도
 
-    private Vector3 moveDirection;        // 이동 방향
-    private float gravity = -9.8f;        // 중력
-
-    void Start()
+    void LateUpdate()
     {
-        controller = GetComponent<CharacterController>();  // CharacterController 가져오기
-    }
+        // 카메라의 목표 위치를 플레이어 위치 + 오프셋으로 설정
+        Vector3 desiredPosition = player.position + offset;
+        
+        // 부드럽게 카메라가 목표 위치로 이동
+        Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
+        
+        // 카메라 위치 설정
+        transform.position = smoothedPosition;
 
-    void Update()
-    {
-        // 입력받은 값으로 이동 방향 계산
-        float moveX = Input.GetAxis("Horizontal");  // 좌우 입력 (A, D or Arrow Left/Right)
-        float moveZ = Input.GetAxis("Vertical");    // 상하 입력 (W, S or Arrow Up/Down)
-
-        // 이동 방향 설정
-        moveDirection = new Vector3(moveX, 0, moveZ).normalized;
-
-        // Y축(중력) 처리를 추가
-        if (!controller.isGrounded)
-        {
-            moveDirection.y += gravity * Time.deltaTime;  // 공중에 있을 경우 중력 적용
-        }
-        else
-        {
-            moveDirection.y = 0;  // 바닥에 있을 경우 Y축 움직임 초기화
-        }
-
-        // 이동 처리
-        controller.Move(moveDirection * moveSpeed * Time.deltaTime);  // 이동
-
-        // 플레이어 회전 처리 (마우스나 키보드 방향에 맞춰 회전)
-        if (moveDirection.magnitude > 0)
-        {
-            // 이동 방향에 맞춰 회전
-            Quaternion toRotation = Quaternion.LookRotation(moveDirection, Vector3.up);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
-        }
+        // 카메라가 항상 플레이어를 향하도록 회전
+        transform.LookAt(player);
     }
 }
