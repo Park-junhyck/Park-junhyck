@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: game-backend-service
+spec:
+  selector:
+    app: game-backend  # 레플리카가 포함된 Pod들을 대상으로 트래픽을 라우팅
+  ports:
+    - protocol: TCP
+      port: 80  # 외부에서 접근할 포트
+      targetPort: 8080  # 컨테이너에서 노출되는 애플리케이션의 포트
+  type: LoadBalancer  # 로드밸런서를 통해 외부 접근을 처리
