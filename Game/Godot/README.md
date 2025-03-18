@@ -2,7 +2,8 @@ Godot 엔진: 버전 4.2.2
 Blender: 3D 모델링 및 애니메이션을 위한 소프트웨어
 GDScript: Godot에서 사용하는 스크립팅 언어
 
-```Godot/
+```
+Godot/
 ├── assets/                  # 3D 모델 및 텍스처
 │   ├── player_model.fbx
 │   └── enemy_model.fbx
