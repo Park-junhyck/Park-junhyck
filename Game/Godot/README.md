@@ -2,7 +2,7 @@ Godot 엔진: 버전 4.2.2
 Blender: 3D 모델링 및 애니메이션을 위한 소프트웨어
 GDScript: Godot에서 사용하는 스크립팅 언어
 
-Godot/
+```Godot/
 ├── assets/                  # 3D 모델 및 텍스처
 │   ├── player_model.fbx
 │   └── enemy_model.fbx
@@ -14,6 +14,7 @@ Godot/
 │   └── enemy.gd
 └── ui/                      # UI 요소 및 스크립트
     └── health_ui.gd
+```
 
 player: 플레이어의 이동, 자동 공격 및 상호작용을 관리
 enemy: 적의 행동을 관리하며, 적의 생성 및 AI를 처리
