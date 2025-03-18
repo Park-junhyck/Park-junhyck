@@ -1,26 +1,32 @@
-extends KinematicBody2D
+extends KinematicBody
 
+# 변수 선언
 var speed = 200
-var velocity = Vector2()
+var velocity = Vector3()
+var rotation_speed = 5
 
-func _ready():
-    pass
-
+# 이동 처리
 func _process(delta):
-    velocity = Vector2()
-
-    # 입력 처리 (WASD or 방향키)
+    var direction = Vector3() # 이동 방향을 저장할 변수
+    
     if Input.is_action_pressed("ui_right"):
-        velocity.x += 1
+        direction.x += 1
     if Input.is_action_pressed("ui_left"):
-        velocity.x -= 1
+        direction.x -= 1
     if Input.is_action_pressed("ui_down"):
-        velocity.y += 1
+        direction.z += 1
     if Input.is_action_pressed("ui_up"):
-        velocity.y -= 1
+        direction.z -= 1
 
-    # 속도 설정
-    velocity = velocity.normalized() * speed
+    # 속도 및 방향 설정
+    direction = direction.normalized() * speed
+    velocity = direction
 
-    # 이동
-    move_and_slide(velocity)
+    # 이동 처리
+    move_and_slide(velocity, Vector3.UP)
+
+    # 애니메이션 설정 (걷기 등)
+    if direction.length() > 0:
+        $AnimationPlayer.play("walk")
+    else:
+        $AnimationPlayer.play("idle")
